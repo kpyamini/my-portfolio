@@ -221,27 +221,201 @@ section:nth-child(2) { animation-delay: 0.1s; }
 section:nth-child(3) { animation-delay: 0.2s; }
 section:nth-child(4) { animation-delay: 0.3s; }
 footer               { animation-delay: 0.4s; }
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+}
+
+.badge-active {
+  background: rgba(0, 245, 196, 0.1);
+  border: 1px solid rgba(0, 245, 196, 0.3);
+  color: var(--accent-1);
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.card-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--accent-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.card-link:hover { color: var(--accent-1); }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Hi, I'm Yamini Krishnaprakash</h1>
-        <p>Senior Software Engineer | Banking | AI/ML Enthusiast</p>
+        <p>Senior Software Engineer | Java Springboot, AWS , DB2 | Banking Domain Expert | AI/ML Enthusiast</p>
     </header>
 
     <section id="about">
-        <h2>About Me</h2>
-        <p>I don’t just write code; I build digital ecosystems. Driven by a deep-seated passion for learning, I thrive on experimenting with emerging technologies to see how they can be pushed to their limits. My approach is rooted in <span class="highlight">elegant architecting</span> and <span class="highlight">relentless problem-solving</span>, breaking down complex hurdles into scalable, efficient systems. Currently, I am deeply curious about the evolving landscape of AI, exploring its capabilities to bridge the gap between <span class="highlight">human intuition</span> and <span class="highlight">machine intelligence</span>. I believe the best solutions aren't just functional; they're future-proof.</p>
-    </section>
+  <h2>About Me</h2>
+
+  <div class="about-journey">
+    <div class="journey-step">
+      <span class="journey-icon">⬡</span>
+      <div>
+        <span class="journey-label">Origin</span>
+        <p>Mainframe &amp; COBOL — mission-critical systems, legacy modernisation</p>
+      </div>
+    </div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-step">
+      <span class="journey-icon">⬡</span>
+      <div>
+        <span class="journey-label">Evolution</span>
+        <p>Microservices &amp; Java Spring Boot — distributed, cloud-native architecture</p>
+      </div>
+    </div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-step accent-now">
+      <span class="journey-icon">⬡</span>
+      <div>
+        <span class="journey-label">Now</span>
+        <p>AI &amp; Machine Learning — next-generation complex technical challenges</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-body">
+    <p>
+      I'm a Computer Science Engineer with a career built on evolution. Driven by a deep-seated
+      passion for learning, I thrive on experimenting with emerging technologies to see how far
+      they can be pushed.
+    </p>
+    <p>
+      My approach is rooted in <span class="highlight">elegant architecting</span> and
+      <span class="highlight">relentless problem-solving</span> — breaking down complex hurdles
+      into scalable, efficient systems.
+    </p>
+    <p>
+      Currently I'm deeply curious about the evolving landscape of AI, exploring its capabilities
+      to bridge the gap between <span class="highlight">human intuition</span> and
+      <span class="highlight">machine intelligence</span>. I believe the best solutions aren't
+      just functional — they're future-proof.
+    </p>
+  </div>
+</section>
+
+<style>
+/* ── About section extras ── */
+.about-journey {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.journey-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem 0.5rem;
+}
+
+.journey-step.accent-now .journey-icon {
+  color: var(--accent-1);
+  filter: drop-shadow(0 0 6px var(--accent-1));
+}
+
+.journey-step.accent-now .journey-label {
+  color: var(--accent-1);
+}
+
+.journey-step.accent-now p {
+  color: var(--text-main);
+}
+
+.journey-icon {
+  font-size: 1rem;
+  color: var(--accent-2);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.journey-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-2);
+  margin-bottom: 0.2rem;
+}
+
+.journey-step p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.journey-arrow {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--border);
+  font-size: 1rem;
+  padding-left: 1.35rem;
+  line-height: 1;
+}
+
+.about-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-body p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+</style>
 
     <section id="projects">
         <h2>Projects</h2>
         <div class="project-card">
-            <h3>AI-based Session Scheduler</h3>
-            <p>A tool that leverages AI to optimize and schedule meetings based on participant availability and preferences.</p>
-            <a href="https://github.com/kpyamini/OpenAI_Session_Scheduler">View on GitHub</a>
-        </div>
+  <div class="card-header">
+    <h3>AI-based Session Scheduler</h3>
+    <span class="badge badge-active">⚡ In Progress</span>
+  </div>
+  <p>An experiment in building a weekly client session scheduler using LLMs, with a focus on natural language understanding and user intent. Currently exploring various evaluation techniques to improve accuracy and user satisfaction.</p>
+  <div class="card-footer">
+    <div class="tags">
+      <span class="tag">LLM</span>
+      <span class="tag">NLP</span>
+      <span class="tag">Python</span>
+      <span class="tag">Evals</span>
+    </div>
+    <a class="card-link" href="https://github.com/kpyamini/OpenAI_Session_Scheduler">View on GitHub →</a>
+  </div>
+</div>
     </section>
 
     <footer>
