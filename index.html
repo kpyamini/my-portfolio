@@ -5,40 +5,421 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <style>
-        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; color: #333; }
-        header { background: #24292e; color: white; padding: 2rem; text-align: center; }
-        section { padding: 2rem; max-width: 800px; margin: auto; }
-        .project-card { border: 1px solid #ddd; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; }
-        footer { text-align: center; padding: 2rem; font-size: 0.9rem; color: #666; }
-        .highlight { background: linear-gradient(120px, #84fab0 0%, #8fd3f4 100%); /* A soft mint-blue glow */
-                padding: 0 2px;
-                font-weight: bold;
-                }
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=DM+Sans:wght@300;400;600&display=swap');
+
+:root {
+  --bg-deep:    #090e1a;
+  --bg-card:    #0f1729;
+  --bg-raised:  #141e35;
+  --accent-1:   #00f5c4;   /* electric mint */
+  --accent-2:   #4f8ef7;   /* vivid blue    */
+  --accent-3:   #f76f4f;   /* coral pop     */
+  --text-main:  #e8edf5;
+  --text-muted: #7a8ba8;
+  --border:     rgba(79, 142, 247, 0.18);
+  --glow-1:     rgba(0, 245, 196, 0.12);
+  --glow-2:     rgba(79, 142, 247, 0.15);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Base ── */
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  background: var(--bg-deep);
+  color: var(--text-main);
+  min-height: 100vh;
+
+  /* subtle noise grain */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(79,142,247,0.12) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* ── Header ── */
+header {
+  position: relative;
+  padding: 4rem 2rem 3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 600px at 50% 0%, rgba(0,245,196,0.08) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(79,142,247,0.10) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+header h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(100deg, var(--accent-1) 0%, var(--accent-2) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+header p,
+header .subtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+  position: relative;
+}
+
+/* ── Nav / tag pills ── */
+nav, .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+nav a, .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-decoration: none;
+  color: var(--accent-2);
+  background: rgba(79,142,247,0.10);
+  border: 1px solid rgba(79,142,247,0.25);
+  padding: 0.3rem 0.85rem;
+  border-radius: 99px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+nav a:hover, .tag:hover {
+  background: rgba(79,142,247,0.22);
+  color: var(--accent-1);
+  border-color: var(--accent-1);
+}
+
+/* ── Sections ── */
+section {
+  padding: 3rem 2rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+section h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-1);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+section h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Project cards ── */
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s, box-shadow 0.2s;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(79,142,247,0.4);
+  box-shadow: 0 8px 32px var(--glow-2), 0 0 0 1px rgba(79,142,247,0.1);
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-card h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.project-card p {
+  color: var(--text-muted);
+  font-size: 0.93rem;
+}
+
+.project-card a {
+  color: var(--accent-2);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.project-card a:hover { color: var(--accent-1); }
+
+/* ── Highlight ── */
+.highlight {
+  background: linear-gradient(120deg, rgba(0,245,196,0.20) 0%, rgba(79,142,247,0.20) 100%);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+  font-weight: 600;
+  color: var(--accent-1);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+footer a { color: var(--accent-2); text-decoration: none; }
+footer a:hover { color: var(--accent-1); }
+
+/* ── Fade-in on load ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+header, section, footer {
+  animation: fadeUp 0.6s ease both;
+}
+section:nth-child(2) { animation-delay: 0.1s; }
+section:nth-child(3) { animation-delay: 0.2s; }
+section:nth-child(4) { animation-delay: 0.3s; }
+footer               { animation-delay: 0.4s; }
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+}
+
+.badge-active {
+  background: rgba(0, 245, 196, 0.1);
+  border: 1px solid rgba(0, 245, 196, 0.3);
+  color: var(--accent-1);
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.card-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--accent-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.card-link:hover { color: var(--accent-1); }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Hi, I'm Yamini Krishnaprakash</h1>
-        <p>Senior Software Engineer | Banking | AI/ML Enthusiast</p>
+        <p>Senior Software Engineer | Java Springboot, AWS , DB2 | Banking Domain Expert | AI/ML Enthusiast</p>
     </header>
 
     <section id="about">
-        <h2>About Me</h2>
-        <p>I don’t just write code; I build digital ecosystems. Driven by a deep-seated passion for learning, I thrive on experimenting with emerging technologies to see how they can be pushed to their limits. My approach is rooted in <span class="highlight">elegant architecting</span> and <span class="highlight">relentless problem-solving</span>, breaking down complex hurdles into scalable, efficient systems. Currently, I am deeply curious about the evolving landscape of AI, exploring its capabilities to bridge the gap between <span class="highlight">human intuition</span> and <span class="highlight">machine intelligence</span>. I believe the best solutions aren't just functional; they're future-proof.</p>
-    </section>
+  <h2>About Me</h2>
+
+  <div class="about-journey">
+    <div class="journey-step">
+      <span class="journey-icon">⬡</span>
+      <div>
+        <span class="journey-label">Origin</span>
+        <p>Mainframe &amp; COBOL — mission-critical systems, legacy modernisation</p>
+      </div>
+    </div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-step">
+      <span class="journey-icon">⬡</span>
+      <div>
+        <span class="journey-label">Evolution</span>
+        <p>Microservices &amp; Java Spring Boot — distributed, cloud-native architecture</p>
+      </div>
+    </div>
+    <div class="journey-arrow">↓</div>
+    <div class="journey-step accent-now">
+      <span class="journey-icon">⬡</span>
+      <div>
+        <span class="journey-label">Now</span>
+        <p>AI &amp; Machine Learning — next-generation complex technical challenges</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-body">
+    <p>
+      I'm a Computer Science Engineer with a career built on evolution. Driven by a deep-seated
+      passion for learning, I thrive on experimenting with emerging technologies to see how far
+      they can be pushed.
+    </p>
+    <p>
+      My approach is rooted in <span class="highlight">elegant architecting</span> and
+      <span class="highlight">relentless problem-solving</span> — breaking down complex hurdles
+      into scalable, efficient systems.
+    </p>
+    <p>
+      Currently I'm deeply curious about the evolving landscape of AI, exploring its capabilities
+      to bridge the gap between <span class="highlight">human intuition</span> and
+      <span class="highlight">machine intelligence</span>. I believe the best solutions aren't
+      just functional — they're future-proof.
+    </p>
+  </div>
+</section>
+
+<style>
+/* ── About section extras ── */
+.about-journey {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.journey-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem 0.5rem;
+}
+
+.journey-step.accent-now .journey-icon {
+  color: var(--accent-1);
+  filter: drop-shadow(0 0 6px var(--accent-1));
+}
+
+.journey-step.accent-now .journey-label {
+  color: var(--accent-1);
+}
+
+.journey-step.accent-now p {
+  color: var(--text-main);
+}
+
+.journey-icon {
+  font-size: 1rem;
+  color: var(--accent-2);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.journey-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-2);
+  margin-bottom: 0.2rem;
+}
+
+.journey-step p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.journey-arrow {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--border);
+  font-size: 1rem;
+  padding-left: 1.35rem;
+  line-height: 1;
+}
+
+.about-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-body p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+</style>
 
     <section id="projects">
         <h2>Projects</h2>
         <div class="project-card">
-            <h3>AI-based Session Scheduler</h3>
-            <p>A tool that leverages AI to optimize and schedule meetings based on participant availability and preferences.</p>
-            <a href="https://github.com/kpyamini/OpenAI_Session_Scheduler">View on GitHub</a>
-        </div>
+  <div class="card-header">
+    <h3>AI-based Session Scheduler</h3>
+    <span class="badge badge-active">⚡ In Progress</span>
+  </div>
+  <p>An experiment in building a weekly client session scheduler using LLMs, with a focus on natural language understanding and user intent. Currently exploring various evaluation techniques to improve accuracy and user satisfaction.</p>
+  <div class="card-footer">
+    <div class="tags">
+      <span class="tag">LLM</span>
+      <span class="tag">Prompting</span>
+      <span class="tag">Python</span>
+      <span class="tag">Evals</span>
+    </div>
+    <a class="card-link" href="https://github.com/kpyamini/OpenAI_Session_Scheduler">View on GitHub →</a>
+  </div>
+</div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Yamini Krishnaprakash. Built with ❤️ and hosted on GitHub Pages.</p>
+        <p>&copy; Yamini Krishnaprakash - Love for Technology and Innovation</p>
     </footer>
 
 </body>
