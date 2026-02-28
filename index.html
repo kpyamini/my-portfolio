@@ -263,6 +263,236 @@ footer               { animation-delay: 0.4s; }
 }
 
 .card-link:hover { color: var(--accent-1); }
+
+
+/* ── Timeline ── */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.45rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent-2), var(--accent-1) 80%, transparent);
+  opacity: 0.35;
+}
+
+.tl-item {
+  position: relative;
+  padding-bottom: 2.5rem;
+  display: flex;
+  gap: 1.25rem;
+}
+
+.tl-item:last-child { padding-bottom: 0; }
+
+.tl-dot {
+  position: absolute;
+  left: -1.78rem;
+  top: 0.35rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg-deep);
+  border: 2px solid var(--accent-2);
+  flex-shrink: 0;
+  transition: border-color 0.2s;
+}
+
+.tl-now .tl-dot {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 8px var(--accent-1);
+  background: var(--accent-1);
+}
+
+.tl-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  flex: 1;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tl-content:hover {
+  border-color: rgba(79,142,247,0.35);
+  box-shadow: 0 4px 20px var(--glow-2);
+}
+
+.tl-now .tl-content {
+  border-color: rgba(0,245,196,0.2);
+}
+
+.tl-now .tl-content:hover {
+  border-color: rgba(0,245,196,0.4);
+  box-shadow: 0 4px 20px var(--glow-1);
+}
+
+.tl-era {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-2);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.tl-now .tl-era { color: var(--accent-1); }
+
+.tl-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.tl-content p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 0.85rem;
+}
+
+.tl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+
+/* ── Skills ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.skill-group-full { grid-column: 1 / -1; }
+
+.skill-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.skill-group-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.skill-group-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.skill-era-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+}
+
+.skill-era-badge.legacy {
+  background: rgba(247,111,79,0.12);
+  border: 1px solid rgba(247,111,79,0.25);
+  color: var(--accent-3);
+}
+
+.skill-era-badge.backend {
+  background: rgba(79,142,247,0.12);
+  border: 1px solid rgba(79,142,247,0.25);
+  color: var(--accent-2);
+}
+
+.skill-era-badge.ai {
+  background: rgba(0,245,196,0.1);
+  border: 1px solid rgba(0,245,196,0.25);
+  color: var(--accent-1);
+}
+
+.skill-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  padding: 0.25rem 0.7rem;
+  border-radius: 6px;
+}
+
+.chip-glow {
+  color: var(--accent-1);
+  background: rgba(0,245,196,0.06);
+  border-color: rgba(0,245,196,0.2);
+}
+
+
+/* ── Currently Exploring ── */
+.explore-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.explore-card-wide { grid-column: 1 / -1; }
+
+.explore-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.explore-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0,245,196,0.25);
+  box-shadow: 0 6px 24px var(--glow-1);
+}
+
+.explore-icon {
+  color: var(--accent-1);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  filter: drop-shadow(0 0 5px var(--accent-1));
+}
+
+.explore-card h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.explore-card p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .skills-grid,
+  .explore-grid { grid-template-columns: 1fr; }
+  .skill-group-full,
+  .explore-card-wide { grid-column: 1; }
+}
     </style>
 </head>
 <body>
@@ -417,6 +647,184 @@ footer               { animation-delay: 0.4s; }
   </div>
 </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════════
+     SECTION 1 — CAREER TIMELINE
+     ═══════════════════════════════════════════════ -->
+<section id="timeline">
+  <h2>My Journey</h2>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <span class="tl-era">Early Career</span>
+        <h3 class="tl-title">Mainframe &amp; COBOL Engineer</h3>
+        <p>Designed and managed mission-critical batch and online applications on IBM Mainframe. Became deeply fluent in fault-tolerant, high-throughput system design — lessons that still inform every architecture decision I make today.</p>
+        <div class="tl-tags">
+          <span class="tag">COBOL</span>
+          <span class="tag">JCL</span>
+          <span class="tag">IBM Mainframe</span>
+          <span class="tag">VSAM</span>
+          <span class="tag">DB2</span>
+          <span class="tag">CICS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <span class="tl-era">Modernisation</span>
+        <h3 class="tl-title">Legacy → Modern UI Transformation</h3>
+        <p>Led the transformation of legacy mainframe systems into modern user-facing experiences. Bridged the gap between decades-old business logic and contemporary frontend paradigms — preserving reliability while unlocking usability.</p>
+        <div class="tl-tags">
+          <span class="tag">System Migration</span>
+          <span class="tag">UI Modernisation</span>
+          <span class="tag">API Design</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <span class="tl-era">Scale</span>
+        <h3 class="tl-title">Microservices &amp; Java Spring Boot</h3>
+        <p>Mastered the microservices paradigm — decomposing monoliths, designing distributed systems, and building resilient cloud-native backends. Learned to think in services, contracts, and eventual consistency.</p>
+        <div class="tl-tags">
+          <span class="tag">Java</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Microservices</span>
+          <span class="tag">REST</span>
+          <span class="tag">Cloud & DevOps</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item tl-now">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <span class="tl-era">Now</span>
+        <h3 class="tl-title">AI &amp; Machine Learning</h3>
+        <p>Leveraging AI and ML to tackle the next generation of complex technical challenges. Exploring LLMs, evaluation frameworks, and intelligent system design — where human intuition meets machine intelligence.</p>
+        <div class="tl-tags">
+          <span class="tag">LLMs</span>
+          <span class="tag">Python</span>
+          <span class="tag">ML</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">Evals</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2 — SKILLS & STACK
+     ═══════════════════════════════════════════════ -->
+<section id="skills">
+  <h2>Skills &amp; Stack</h2>
+
+  <div class="skills-grid">
+
+    <div class="skill-group">
+      <div class="skill-group-header">
+        <span class="skill-era-badge legacy">Legacy</span>
+        <span class="skill-group-title">Mainframe Era</span>
+      </div>
+      <div class="skill-chips">
+        <span class="chip">COBOL</span>
+        <span class="chip">JCL</span>
+        <span class="chip">VSAM</span>
+        <span class="chip">DB2</span>
+        <span class="chip">CICS</span>
+        <span class="chip">IBM MQ</span>
+        <span class="chip">Batch Processing</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-header">
+        <span class="skill-era-badge backend">Backend</span>
+        <span class="skill-group-title">Microservices Era</span>
+      </div>
+      <div class="skill-chips">
+        <span class="chip">Java</span>
+        <span class="chip">Spring Boot</span>
+        <span class="chip">REST APIs</span>
+        <span class="chip">Microservices</span>
+        <span class="chip">Cloud</span>
+        <span class="chip">GitLab CI-CD</span>
+      </div>
+    </div>
+
+    <div class="skill-group skill-group-full">
+      <div class="skill-group-header">
+        <span class="skill-era-badge ai">AI / ML</span>
+        <span class="skill-group-title">Intelligence Era</span>
+      </div>
+      <div class="skill-chips">
+        <span class="chip chip-glow">Python</span>
+        <span class="chip chip-glow">Math</span>
+        <span class="chip chip-glow">LLMs</span>
+        <span class="chip chip-glow">Prompt Engineering</span>
+        <span class="chip chip-glow">RAG</span>
+        <span class="chip chip-glow">LLM Evals</span>
+        <span class="chip chip-glow">Agentic Workflows</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3 — CURRENTLY EXPLORING
+     ═══════════════════════════════════════════════ -->
+<section id="exploring">
+  <h2>Currently Exploring</h2>
+
+  <div class="explore-grid">
+
+    <div class="explore-card">
+      <span class="explore-icon">◈</span>
+      <div>
+        <h4>RAG Pipelines</h4>
+        <p>Building and benchmarking retrieval-augmented generation systems — experimenting with chunking strategies, embedding models, and reranking to push retrieval quality.</p>
+      </div>
+    </div>
+
+    <div class="explore-card">
+      <span class="explore-icon">◈</span>
+      <div>
+        <h4>LLM Evaluation Frameworks</h4>
+        <p>Investigating how to rigorously measure LLM output quality. Exploring automated eval techniques, human-in-the-loop scoring, and LLM as a judge.</p>
+      </div>
+    </div>
+
+    <div class="explore-card">
+      <span class="explore-icon">◈</span>
+      <div>
+        <h4>Agentic Systems</h4>
+        <p>Exploring multi-agent architectures and tool-use patterns — where LLMs move from answering questions to autonomously orchestrating complex workflows using protocols like MCP</p>
+      </div>
+    </div>
+
+    <div class="explore-card explore-card-wide">
+      <span class="explore-icon">◈</span>
+      <div>
+        <h4>What COBOL taught me about AI reliability</h4>
+        <p>Decades of mainframe engineering instilled a near-obsessive respect for fault tolerance, auditability, and deterministic behaviour. I'm exploring how those same principles apply — and are often missing — in modern AI systems. The best AI won't just be intelligent; it'll be <span class="highlight">dependable</span>.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
     <footer>
         <p>&copy; Yamini Krishnaprakash - Love for Technology and Innovation</p>
